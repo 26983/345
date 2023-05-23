@@ -1,0 +1,74 @@
+/**
+ * Bouncing Ball with Vectors 
+ * 
+ * Demonstration of using vectors to control motion 
+ * of a body.
+ */
+ 
+PVector location1;  // Location of first ball
+PVector velocity1;  // Velocity of first ball
+PVector gravity1;   // Gravity acts at the first ball's acceleration
+
+PVector location2;  // Location of second ball
+PVector velocity2;  // Velocity of second ball
+PVector gravity2;   // Gravity acts at the second ball's acceleration
+
+void setup() {
+  size(640,360);
+  location1 = new PVector(100,100);
+  velocity1 = new PVector(1.5,2.1);
+  gravity1 = new PVector(0,0.2);
+  
+  location2 = new PVector(300,150);
+  velocity2 = new PVector(-2.1,1.3);
+  gravity2 = new PVector(0,0.3);
+    
+}
+
+void draw() {
+  background(0);
+  
+  // Update location and velocity of first ball
+  location1.add(velocity1);
+  velocity1.add(gravity1);
+  
+  // Update location and velocity of second ball
+  location2.add(velocity2);
+  velocity2.add(gravity2);
+  
+  // Bounce off edges for first ball
+  if ((location1.x > width) || (location1.x < 0)) {
+    velocity1.x = velocity1.x * -1;
+  }
+  
+  if (location1.y > height) {
+    // We're reducing velocity ever so slightly 
+    // when it hits the bottom of the window
+    velocity1.y = velocity1.y * -0.95; 
+    location1.y = height;
+  }
+  
+  // Bounce off edges for second ball
+  if ((location2.x > width) || (location2.x < 0)) {
+    velocity2.x = velocity2.x * -1;
+  }
+  
+  if (location2.y > height) {
+    // We're reducing velocity ever so slightly 
+    // when it hits the bottom of the window
+    velocity2.y = velocity2.y * -0.95; 
+    location2.y = height;
+  }
+
+  // Display first ball at location1 vector
+  stroke(255);
+  strokeWeight(2);
+  fill(127);
+  ellipse(location1.x,location1.y,48,48);
+  
+  // Display second ball at location2 vector
+  stroke(255);
+  strokeWeight(2);
+  fill(255, 0, 0);
+  ellipse(location2.x,location2.y,36,36);
+}
